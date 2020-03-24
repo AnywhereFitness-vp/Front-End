@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import api from "../utils/api";
-
-import Image1 from "../images/cardio.jpg";
+import swal from "sweetalert";
 
 import cardioImg from "../images/cardio.jpg";
 import kickboxingImg from "../images/kickboxing2.jpg";
@@ -11,6 +11,7 @@ import styled from "styled-components";
 
 function ClassesPage() {
   const [classes, setClasses] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     api()
@@ -23,6 +24,27 @@ function ClassesPage() {
         console.log("Error with GET classes", err);
       });
   }, []);
+
+  const deleteClass = (event, classes) => {
+    // event.preventDefault();
+    api()
+      .delete(`/api/classes/${classes.id}`)
+      .then(res => {
+        console.log("Delete class", res);
+        api()
+          .get(`/api/classes`)
+          .then(res => {
+            console.log(res);
+            setClasses(res.data);
+          })
+          .catch(err => {
+            console.log("Error deleting class", err);
+          });
+      })
+      .catch(err => {
+        console.log("Error getting id to delete class", err);
+      });
+  };
 
   return (
     <>
@@ -44,44 +66,71 @@ function ClassesPage() {
 
       <ClassesContainer>
         {classes.map(classes => (
-          <ClassCard key={classes.id}>
-            <FlexCardSection>
-              <p>{classes.type}</p>
-              <p>{classes.class_date}</p>
-            </FlexCardSection>
-            <div>
-              {classes.type === "cardio" ? (
-                <CardImage src={cardioImg} />
-              ) : classes.type === "weights" ? (
-                <CardImage src={weightsImg} />
-              ) : (
-                <CardImage src={kickboxingImg} />
-              )}
-            </div>
-            <div>
-              <p>
-                <CardTitles>{classes.name}</CardTitles>
-              </p>
-              <p>
-                Starting at {classes.start_time} and scheduled for{" "}
-                {classes.duration} hour(s). The intensity for this class is{" "}
-                {classes.intensity} and will be located in {classes.location}.
-              </p>
-            </div>
-            <FlexCardSection>
-              <RegisterButton>Register</RegisterButton>
-              <p>
-                {classes.number_of_attendees === classes.max_attendees ? (
-                  <ClassFull>FULL</ClassFull>
+          <>
+            <ClassCard key={classes.id}>
+              <EditDeleteSpan>
+                <EditLink to={`/classedit/${classes.id}`}>Edit</EditLink>
+                {/* <DeleteLink onClick={e => deleteClass(e, classes)}> */}
+                <DeleteLink
+                  onClick={function() {
+                    swal({
+                      title: "DELETE",
+                      text: "Are you sure you want to delete this class?",
+                      icon: "warning",
+                      buttons: true,
+                      dangerMode: true
+                    }).then(willDelete => {
+                      if (willDelete) {
+                        const deleteThisClass = e => deleteClass(e, classes);
+                        deleteThisClass();
+                        swal("Class deleted", {
+                          icon: "success"
+                        });
+                      }
+                    });
+                  }}
+                >
+                  ❌
+                </DeleteLink>
+              </EditDeleteSpan>
+              <FlexCardSection>
+                <ClassType>{classes.type}</ClassType>
+                <p>{classes.class_date}</p>
+              </FlexCardSection>
+              <div>
+                {classes.type === "cardio" ? (
+                  <CardImage src={cardioImg} />
+                ) : classes.type === "weights" ? (
+                  <CardImage src={weightsImg} />
                 ) : (
-                  <p>
-                    <CardTitles>Attendees:</CardTitles>{" "}
-                    {classes.number_of_attendees} / {classes.max_attendees}
-                  </p>
+                  <CardImage src={kickboxingImg} />
                 )}
-              </p>
-            </FlexCardSection>
-          </ClassCard>
+              </div>
+              <TextArea>
+                <p>
+                  <CardTitles>{classes.name}</CardTitles>
+                </p>
+                <p>
+                  Starting at {classes.start_time} and scheduled for{" "}
+                  {classes.duration} hour(s). The intensity for this class is{" "}
+                  {classes.intensity} and will be located in {classes.location}.
+                </p>
+              </TextArea>
+              <CardFooter>
+                <RegisterButton>Register</RegisterButton>
+                <p>
+                  {classes.number_of_attendees === classes.max_attendees ? (
+                    <ClassFull>FULL</ClassFull>
+                  ) : (
+                    <p>
+                      <CardTitles>Attendees:</CardTitles>{" "}
+                      {classes.number_of_attendees} / {classes.max_attendees}
+                    </p>
+                  )}
+                </p>
+              </CardFooter>
+            </ClassCard>
+          </>
         ))}
       </ClassesContainer>
     </>
@@ -94,7 +143,7 @@ const ClassesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 20px 0 20px 0;
+  margin: 20px 0;
 `;
 const ClassCard = styled.div`
   display: flex;
@@ -104,7 +153,7 @@ const ClassCard = styled.div`
   margin: 10px;
   border: 0.5px solid black;
   border-radius: 5px;
-  padding: 0 10px 0 10px;
+  padding: 5px 10px;
   box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.2);
 `;
 const CardTitles = styled.big`
@@ -119,6 +168,20 @@ const FlexCardSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 5px 0;
+  height: 20px;
+`;
+const CardFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+  height: 50px;
+`;
+const ClassType = styled.p`
+  text-transform: uppercase;
+  font-weight: bold;
+  color: steelblue;
 `;
 const RegisterButton = styled.button`
   margin: 5px;
@@ -132,9 +195,30 @@ const RegisterButton = styled.button`
   &:hover {
     background: steelblue;
     color: white;
+    cursor: pointer;
   }
 `;
 const CardImage = styled.img`
   width: 100%;
   border-radius: 5px;
+  height: 200px;
+`;
+const TextArea = styled.div`
+  height: 125px;
+`;
+const EditDeleteSpan = styled.span`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.25px solid lightgrey;
+`;
+const EditLink = styled(Link)`
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: goldenrod;
+`;
+const DeleteLink = styled.p`
+  font-size: 1.4rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;

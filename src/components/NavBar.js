@@ -12,6 +12,7 @@ import Logout from "./auth/Logout";
 import InstructorsList from "./InstructorsList";
 import ClassesPage from "./ClassesPage";
 import Testimonials from "./Testimonials";
+import ClassEdits from "./instructors/EditClass";
 
 import styled from "styled-components";
 
@@ -76,6 +77,8 @@ function NavBar() {
       <ProtectedRoute exact path="/classes" component={ClassesPage} />
       <ProtectedRoute exact path="/instructors" component={InstructorsList} />
       <ProtectedRoute exact path="/logout" component={Logout} />
+
+      <Route exact path="/classedit/:id" component={ClassEdits} />
     </>
   );
 }
