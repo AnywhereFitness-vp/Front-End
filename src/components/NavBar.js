@@ -13,6 +13,7 @@ import InstructorsList from "./InstructorsList";
 import ClassesPage from "./ClassesPage";
 import Testimonials from "./Testimonials";
 import ClassEdits from "./instructors/EditClass";
+import CreateClass from "./instructors/CreateClass";
 
 import styled from "styled-components";
 
@@ -79,6 +80,7 @@ function NavBar() {
       <ProtectedRoute exact path="/logout" component={Logout} />
 
       <Route exact path="/classedit/:id" component={ClassEdits} />
+      <Route exact path="/createclass" component={CreateClass} />
     </>
   );
 }

@@ -48,7 +48,6 @@ function ClassesPage() {
 
   return (
     <>
-      {/* Change Starts Now2 Start */}
       <section className="change-two between" id="classes">
         <div className="container">
           <div className="global-headline">
@@ -63,6 +62,10 @@ function ClassesPage() {
           </div>
         </div>
       </section>
+
+      <AddClassDiv>
+        <AddClassLink to="/createclass">Add Class</AddClassLink>
+      </AddClassDiv>
 
       <ClassesContainer>
         {classes.map(classes => (
@@ -112,14 +115,15 @@ function ClassesPage() {
                 </p>
                 <p>
                   Starting at {classes.start_time} and scheduled for{" "}
-                  {classes.duration} hour(s). The intensity for this class is{" "}
+                  {classes.duration}. The intensity for this class is{" "}
                   {classes.intensity} and will be located in {classes.location}.
                 </p>
               </TextArea>
               <CardFooter>
                 <RegisterButton>Register</RegisterButton>
                 <p>
-                  {classes.number_of_attendees === classes.max_attendees ? (
+                  {classes.number_of_attendees === classes.max_attendees ||
+                  classes.number_of_attendees > classes.max_attendees ? (
                     <ClassFull>FULL</ClassFull>
                   ) : (
                     <p>
@@ -220,5 +224,22 @@ const DeleteLink = styled.p`
   font-size: 1.4rem;
   &:hover {
     cursor: pointer;
+  }
+`;
+const AddClassDiv = styled.div`
+  margin-top: 25px;
+  text-align: center;
+`;
+const AddClassLink = styled(Link)`
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: green;
+  opacity: 0.65;
+  border-bottom: 1px solid white;
+  transition: 0.5s ease;
+  &:hover {
+    cursor: pointer;
+    border-bottom: 1px solid green;
+    opacity: 1;
   }
 `;
