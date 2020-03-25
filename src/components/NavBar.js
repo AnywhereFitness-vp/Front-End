@@ -14,6 +14,7 @@ import ClassesPage from "./ClassesPage";
 import Testimonials from "./Testimonials";
 import ClassEdits from "./instructors/EditClass";
 import CreateClass from "./instructors/CreateClass";
+import ClassRegistration from "./ClassRegistration";
 
 import styled from "styled-components";
 
@@ -81,6 +82,11 @@ function NavBar() {
 
       <Route exact path="/classedit/:id" component={ClassEdits} />
       <Route exact path="/createclass" component={CreateClass} />
+      <Route
+        exact
+        path="/classregistration/:id"
+        component={ClassRegistration}
+      />
     </>
   );
 }

@@ -47,84 +47,76 @@ function CreateClass(props) {
       <Form onSubmit={handleSubmit}>
         <BackLink to="/classes">Cancel</BackLink>
         <Label>Name</Label>
-        <Input type="text" name="name" onChange={handleChange} placeholder="" />
+        <Input
+          type="text"
+          name="name"
+          onChange={handleChange}
+          placeholder="name"
+        />
         <Label>Type</Label>
         <Select
-          type="select"
+          type="text"
           name="type"
           onChange={handleChange}
-          placeholder=""
+          placeholder="type"
         >
-          <CurrentOption value="">Please Select...</CurrentOption>
+          <Option value="">Please Select...</Option>
           <Option value={"Cardio"}>Cardio</Option>
           <Option value={"Weights"}>Weights</Option>
           <Option value={"Kickboxing"}>Kickboxing</Option>
         </Select>
         <Label>Class Date</Label>
         <Input
-          type="date"
+          type="text"
           name="class_date"
           onChange={handleChange}
-          placeholder=""
+          placeholder="dd/mm/yyyy"
         />
         <Label>Start Time</Label>
         <Select
-          type="select"
+          type="text"
           name="start_time"
           onChange={handleChange}
-          placeholder=""
+          placeholder="start_time"
         >
-          <CurrentOption value="">Please Select...</CurrentOption>
-          <Option value={"12:00 AM"}>12:00 AM</Option>
-          <Option value={"1:00 AM"}>1:00</Option>
-          <Option value={"2:00 AM"}>2:00</Option>
-          <Option value={"3:00 AM"}>3:00</Option>
-          <Option value={"4:00 AM"}>4:00</Option>
-          <Option value={"5:00 AM"}>5:00</Option>
-          <Option value={"6:00 AM"}>6:00</Option>
-          <Option value={"7:00 AM"}>7:00</Option>
-          <Option value={"8:00 AM"}>8:00</Option>
-          <Option value={"9:00 AM"}>9:00</Option>
-          <Option value={"10:00 AM"}>10:00</Option>
-          <Option value={"11:00 AM"}>11:00</Option>
-          <Option value={"12:00 PM"}>12:00 PM</Option>
-          <Option value={"1:00 PM"}>1:00</Option>
-          <Option value={"2:00 PM"}>2:00</Option>
-          <Option value={"3:00 PM"}>3:00</Option>
-          <Option value={"4:00 PM"}>4:00</Option>
-          <Option value={"5:00 PM"}>5:00</Option>
-          <Option value={"6:00 PM"}>6:00</Option>
-          <Option value={"7:00 PM"}>7:00</Option>
-          <Option value={"8:00 PM"}>8:00</Option>
-          <Option value={"9:00 PM"}>9:00</Option>
-          <Option value={"10:00 PM"}>10:00</Option>
-          <Option value={"11:00 PM"}>11:00</Option>
+          <Option value="">Please Select...</Option>
+          <AMOption value={"5:00AM"}>5:00 AM</AMOption>
+          <AMOption value={"6:00AM"}>6:00 AM</AMOption>
+          <AMOption value={"7:00AM"}>7:00 AM</AMOption>
+          <AMOption value={"8:00AM"}>8:00 AM</AMOption>
+          <AMOption value={"9:00AM"}>9:00 AM</AMOption>
+          <AMOption value={"10:00AM"}>10:00 AM</AMOption>
+          <AMOption value={"11:00AM"}>11:00 AM</AMOption>
+          <PMOption value={"12:00PM"}>12:00 PM</PMOption>
+          <PMOption value={"1:00PM"}>1:00 PM</PMOption>
+          <PMOption value={"2:00PM"}>2:00 PM</PMOption>
+          <PMOption value={"3:00PM"}>3:00 PM</PMOption>
+          <PMOption value={"4:00PM"}>4:00 PM</PMOption>
+          <PMOption value={"5:00PM"}>5:00 PM</PMOption>
+          <PMOption value={"6:00PM"}>6:00 PM</PMOption>
+          <PMOption value={"7:00PM"}>7:00 PM</PMOption>
+          <PMOption value={"8:00PM"}>8:00 PM</PMOption>
+          <PMOption value={"9:00PM"}>9:00 PM</PMOption>
+          <PMOption value={"10:00PM"}>10:00 PM</PMOption>
+          <PMOption value={"11:00PM"}>11:00 PM</PMOption>
         </Select>
         <Label>Duration</Label>
-        <Select
-          type="select"
+        <Input
+          type="number"
           name="duration"
           onChange={handleChange}
-          placeholder=""
-        >
-          <CurrentOption value="">Please Select...</CurrentOption>
-          <Option value={30}>30 Minutes</Option>
-          <Option value={1}>1 Hour</Option>
-          <Option value={1.5}>1.5 Hours</Option>
-          <Option value={2}>2 Hours</Option>
-          <Option value={2.5}>2.5 Hours</Option>
-          <Option value={3}>3 Hours</Option>
-        </Select>
+          placeholder="duration"
+        />
         <Label>Intensity</Label>
         <Select
-          type="select"
+          type="text"
           name="intensity"
           onChange={handleChange}
-          placeholder=""
+          placeholder="intensity"
         >
-          <CurrentOption value="">Please Select...</CurrentOption>
+          <Option value="">Please Select...</Option>
           <Option value={"Low"}>Low</Option>
-          <Option value={"Moderate"}>Moderate</Option>
+          <Option value={"Medium"}>Medium</Option>
           <Option value={"High"}>High</Option>
           <Option value={"Very High"}>Very High</Option>
         </Select>
@@ -133,32 +125,22 @@ function CreateClass(props) {
           type="text"
           name="location"
           onChange={handleChange}
-          placeholder=""
+          placeholder="location"
         />
         <Label>Attendees</Label>
         <Input
-          type="text"
+          type="number"
           name="number_of_attendees"
+          onChange={handleChange}
           placeholder="0"
-          value={0}
-          disabled
         />
-        <Label>Max Capacity</Label>
-        <Select
-          type="select"
+        <Label>Maximum Attendees</Label>
+        <Input
+          type="number"
           name="max_attendees"
           onChange={handleChange}
-          placeholder=""
-        >
-          <CurrentOption value="">Please Select...</CurrentOption>
-          <Option value={5}>5</Option>
-          <Option value={10}>10</Option>
-          <Option value={15}>15</Option>
-          <Option value={20}>20</Option>
-          <Option value={25}>25</Option>
-          <Option value={30}>30</Option>
-          <Option value={35}>35</Option>
-        </Select>
+          placeholder="max_attendees"
+        />
         <button className="form-btn" type="submit">
           Save
         </button>
@@ -214,4 +196,11 @@ const CurrentOption = styled.option`
 `;
 const Option = styled.option`
   font-size: 1.8rem;
+`;
+const AMOption = styled.option`
+  font-size: 1.8rem;
+`;
+const PMOption = styled.option`
+  font-size: 1.8rem;
+  background-color: lightgrey;
 `;

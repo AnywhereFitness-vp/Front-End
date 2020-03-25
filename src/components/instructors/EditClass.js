@@ -88,9 +88,8 @@ function CreateClasses(props) {
           <Option value={"Kickboxing"}>Kickboxing</Option>
         </Select>
         <Label>Class Date</Label>
-        <p>Current: {classes.class_date}</p>
         <Input
-          type="date"
+          type="text"
           name="class_date"
           onChange={handleChange}
           placeholder={classes.class_date}
@@ -140,12 +139,12 @@ function CreateClasses(props) {
           <CurrentOption value={classes.duration}>
             {classes.duration}
           </CurrentOption>
-          <Option value={"30 Minutes"}>30 Minutes</Option>
-          <Option value={"1 hour"}>1 Hour</Option>
-          <Option value={"1.5 hours"}>1.5 Hours</Option>
-          <Option value={"2 hours"}>2 Hours</Option>
-          <Option value={"2.5 hours"}>2.5 Hours</Option>
-          <Option value={"3 hours"}>3 Hours</Option>
+          <Option value={"0.5"}>0.5 Hour</Option>
+          <Option value={"1"}>1 Hour</Option>
+          <Option value={"1.5"}>1.5 Hours</Option>
+          <Option value={"2"}>2 Hours</Option>
+          <Option value={"2.5"}>2.5 Hours</Option>
+          <Option value={"3"}>3 Hours</Option>
         </Select>
         <Label>Intensity</Label>
         <Select

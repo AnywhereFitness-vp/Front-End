@@ -115,23 +115,27 @@ function ClassesPage() {
                 </p>
                 <p>
                   Starting at {classes.start_time} and scheduled for{" "}
-                  {classes.duration}. The intensity for this class is{" "}
+                  {classes.duration} hour(s). The intensity for this class is{" "}
                   {classes.intensity} and will be located in {classes.location}.
                 </p>
               </TextArea>
               <CardFooter>
-                <RegisterButton>Register</RegisterButton>
-                <p>
+                <>
                   {classes.number_of_attendees === classes.max_attendees ||
                   classes.number_of_attendees > classes.max_attendees ? (
                     <ClassFull>FULL</ClassFull>
                   ) : (
-                    <p>
-                      <CardTitles>Attendees:</CardTitles>{" "}
-                      {classes.number_of_attendees} / {classes.max_attendees}
-                    </p>
+                    <>
+                      <RegisterButton to={`/classregistration/${classes.id}`}>
+                        Register
+                      </RegisterButton>
+                      <p>
+                        <CardTitles>Attendees:</CardTitles>{" "}
+                        {classes.number_of_attendees} / {classes.max_attendees}
+                      </p>
+                    </>
                   )}
-                </p>
+                </>
               </CardFooter>
             </ClassCard>
           </>
@@ -166,7 +170,9 @@ const CardTitles = styled.big`
 `;
 const ClassFull = styled.big`
   font-weight: bold;
+  font-size: 1.6rem;
   color: red;
+  margin: 0 auto;
 `;
 const FlexCardSection = styled.div`
   display: flex;
@@ -187,15 +193,16 @@ const ClassType = styled.p`
   font-weight: bold;
   color: steelblue;
 `;
-const RegisterButton = styled.button`
-  margin: 5px;
+const RegisterButton = styled(Link)`
   color: steelblue;
   border: 1px solid black;
   border-radius: 5px;
-  font-weight: bold;
-  transition: 0.5s ease;
+  padding: 10px;
   width: 100px;
-  height: 45px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  transiton: 0.5s ease;
   &:hover {
     background: steelblue;
     color: white;
